@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconicSpace — A Visual Archive of Space Industry Identity</title>
+    <meta name="description" content="An open academic archive cataloging 200+ space company and agency logos. Explore the visual culture of the space industry through typological families, cultural traditions, and geographic regions.">
+    <meta property="og:title" content="IconicSpace — Space Logo Archive">
+    <meta property="og:description" content="Explore 200+ space company logos organized by typological family and cultural tradition.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" id="top">
+        <div class="header-inner">
+            <a href="#top" class="logo-group">
+                <span class="logo-icon" aria-hidden="true">◎</span>
+                <span class="site-title">Iconic<span class="hl">Space</span></span>
+            </a>
+            <nav class="header-nav" aria-label="Main navigation">
+                <a href="#archive">Archive</a>
+                <a href="#typology">Typology</a>
+                <a href="#traditions">Traditions</a>
+                <a href="#scripts">Scripts</a>
+                <a href="#about">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-inner">
+            <p class="overline">Open Research Archive · n=200 · 20+ Countries · 6 Continents</p>
+            <h1 id="hero-heading">Why do companies that pride themselves on <em>disruption</em> converge on such visually <em>conformist</em> identities?</h1>
+            <p class="hero-body">
+                IconicSpace catalogs the visual identities of 200 space organizations worldwide, organized by 
+                <strong>typological family</strong> and <strong>cultural tradition</strong>. Companion dataset for 
+                "Branding the Void" (Sounny-Slitine &amp; Bensalem, forthcoming, <em>Space Policy</em>).
+            </p>
+            <div class="hero-actions">
+                <a href="#archive" class="btn btn-primary">Explore the Archive</a>
+                <a href="#typology" class="btn btn-ghost">View Typology</a>
+            </div>
+        </div>
+        <div class="hero-metrics" aria-label="Key findings">
+            <div class="metric">
+                <span class="metric-val">93<small>%</small></span>
+                <span class="metric-label">sans-serif typography</span>
+            </div>
+            <div class="metric">
+                <span class="metric-val">72<small>%</small></span>
+                <span class="metric-label">abstract iconography</span>
+            </div>
+            <div class="metric">
+                <span class="metric-val">&lt;5<small>%</small></span>
+                <span class="metric-label">include a rocket</span>
+            </div>
+            <div class="metric">
+                <span class="metric-val">6</span>
+                <span class="metric-label">typological families</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- TYPOLOGY -->
+    <section id="typology" class="section" aria-labelledby="typology-heading">
+        <div class="container">
+            <header class="section-header">
+                <p class="overline">Classification</p>
+                <h2 id="typology-heading">Six Typological Families</h2>
+                <p class="section-desc">Our analysis identified six recurring visual families across the commercial space industry. Fictional archetype logos illustrate each pattern.</p>
+            </header>
+
+            <div class="family-grid" id="family-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTER-TRADITIONS -->
+    <section id="traditions" class="section section-alt" aria-labelledby="traditions-heading">
+        <div class="container">
+            <header class="section-header">
+                <p class="overline">Cultural Divergence</p>
+                <h2 id="traditions-heading">Counter-Traditions</h2>
+                <p class="section-desc">Five cultural traditions resist the global minimalist convergence, each with a distinct design genealogy.</p>
+            </header>
+
+            <div class="traditions-grid" id="traditions-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHIVE -->
+    <section id="archive" class="section" aria-labelledby="archive-heading">
+        <div class="container">
+            <header class="section-header">
+                <p class="overline">Full Dataset</p>
+                <h2 id="archive-heading">The Archive</h2>
+                <p class="section-desc">All 200 organizations. Search, filter, and explore.</p>
+            </header>
+
+            <div class="filter-bar" role="search" aria-label="Filter companies">
+                <div class="search-wrap">
+                    <svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <input type="search" id="search" placeholder="Search companies..." autocomplete="off">
+                </div>
+                <select id="filter-family" aria-label="Filter by family">
+                    <option value="all">All Families</option>
+                </select>
+                <select id="filter-region" aria-label="Filter by region">
+                    <option value="all">All Regions</option>
+                </select>
+                <select id="filter-sector" aria-label="Filter by sector">
+                    <option value="all">All Sectors</option>
+                </select>
+                <output id="count" class="count" aria-live="polite">200 results</output>
+            </div>
+
+            <div id="grid" class="card-grid" role="list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPT POLITICS -->
+    <section id="scripts" class="section section-alt" aria-labelledby="scripts-heading">
+        <div class="container">
+            <header class="section-header">
+                <p class="overline">Linguistic Identity</p>
+                <h2 id="scripts-heading">Script Politics</h2>
+                <p class="section-desc">Non-Latin writing systems in space branding perform cultural identity work entirely absent from Western logos.</p>
+            </header>
+            <div class="script-grid">
+                <div class="script-card"><span class="script-glyph">इसरो</span><span class="script-sys">Devanagari</span><span class="script-who">ISRO · India</span></div>
+                <div class="script-card"><span class="script-glyph">人</span><span class="script-sys">Chinese</span><span class="script-who">CNSA · China</span></div>
+                <div class="script-card"><span class="script-glyph">РОСКОСМОС</span><span class="script-sys">Cyrillic</span><span class="script-who">Roscosmos · Russia</span></div>
+                <div class="script-card"><span class="script-glyph">クウキ</span><span class="script-sys">Katakana</span><span class="script-who">Japanese startups</span></div>
+                <div class="script-card"><span class="script-glyph">وكالة الفضاء</span><span class="script-sys">Arabic</span><span class="script-who">EgSA · Egypt</span></div>
+                <div class="script-card absent"><span class="script-glyph">ABC</span><span class="script-sys">Latin only</span><span class="script-who">US &amp; Europe</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section" aria-labelledby="about-heading">
+        <div class="container">
+            <header class="section-header">
+                <p class="overline">Research Context</p>
+                <h2 id="about-heading">About This Archive</h2>
+            </header>
+            <div class="about-grid">
+                <article class="about-card">
+                    <h3>Purpose</h3>
+                    <p>IconicSpace is a scholarly research archive for studying visual culture in the commercial space industry. All materials are presented for academic study, commentary, and criticism. Non-commercial.</p>
+                </article>
+                <article class="about-card">
+                    <h3>Citation</h3>
+                    <p>Sounny-Slitine, S. and Bensalem, S. (forthcoming) "Branding the Void: Visual Identity, Institutional Isomorphism, and Placemaking in the Commercial Space Industry," <em>Space Policy</em>.</p>
+                </article>
+                <article class="about-card">
+                    <h3>Methodology</h3>
+                    <p>200 organizations coded across four dimensions: typography, iconography, color, and composition (Krippendorff, 2004; Kress &amp; van Leeuwen, 2006; Henderson &amp; Cote, 1998).</p>
+                </article>
+                <article class="about-card">
+                    <h3>Framework</h3>
+                    <p>Two lenses: <strong>institutional isomorphism</strong> (DiMaggio &amp; Powell, 1983) explains convergence; <strong>visual placemaking</strong> (our concept) explains the cultural work logos perform in placeless environments.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p class="footer-mark">◎ Iconic<span class="hl">Space</span></p>
+            <p>A scholarly research archive for the study of space industry visual culture.</p>
+            <p class="legal">All company logos and trademarks are the property of their respective owners. Materials presented for academic study, commentary, and criticism under fair use. Non-commercial educational resource.</p>
+            <p class="legal">&copy; 2026 Sounny-Slitine &amp; Bensalem · <a href="https://github.com/sounny/iconicspace" target="_blank" rel="noopener">GitHub</a></p>
+        </div>
+    </footer>
+
+    <!-- DETAIL DIALOG (HTML dialog element) -->
+    <dialog id="detail-dialog" class="detail-dialog">
+        <form method="dialog">
+            <button class="dialog-close" aria-label="Close">&times;</button>
+        </form>
+        <div class="dialog-body">
+            <div class="dialog-header">
+                <img id="d-logo" class="dialog-logo" src="" alt="" loading="lazy">
+                <div>
+                    <h2 id="d-name"></h2>
+                    <p id="d-sector" class="dialog-sector"></p>
+                </div>
+            </div>
+            <dl class="dialog-meta">
+                <div><dt>Founded</dt><dd id="d-year"></dd></div>
+                <div><dt>Country</dt><dd id="d-country"></dd></div>
+                <div><dt>Family</dt><dd id="d-family"></dd></div>
+                <div><dt>Region</dt><dd id="d-region"></dd></div>
+            </dl>
+            <h3>Visual Analysis</h3>
+            <p id="d-desc"></p>
+            <a id="d-link" class="dialog-link" href="" target="_blank" rel="noopener">Visit Website →</a>
+        </div>
+    </dialog>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
