@@ -119,7 +119,7 @@
       const dom = domain(c.website);
       
       const logoHtml = dom
-        ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[120px] max-h-[80px] object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-multiply grayscale hover:grayscale-0" loading="lazy" onerror="this.onerror=null; this.src='https://logo.clearbit.com/${dom}';">`
+        ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[120px] max-h-[80px] object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-multiply grayscale hover:grayscale-0" loading="lazy" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='https://www.google.com/s2/favicons?domain=${dom}&sz=128';}else{this.replaceWith(Object.assign(document.createElement('div'),{className:'w-16 h-16 brutal-border flex items-center justify-center bg-transparent',innerHTML:'<span class=\\'font-headline-lg text-headline-lg\\'>${ini}</span>'}));}">`
         : `<div class="w-16 h-16 brutal-border flex items-center justify-center bg-transparent group-hover:bg-primary group-hover:text-white transition-colors duration-300"><span class="font-headline-lg text-headline-lg">${ini}</span></div>`;
 
       el.innerHTML = `
@@ -178,7 +178,8 @@
   function openDetail(c) {
     const dom = domain(c.website);
     const safeName = c.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-    const logoImg = dom ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[200px] max-h-[120px] object-contain mix-blend-multiply" onerror="this.onerror=null; this.src='https://logo.clearbit.com/${dom}';">` : `<div class="font-headline-lg text-[4rem]">${initials(c.name)}</div>`;
+    const ini = initials(c.name);
+    const logoImg = dom ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[200px] max-h-[120px] object-contain mix-blend-multiply" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='https://www.google.com/s2/favicons?domain=${dom}&sz=128';}else{this.replaceWith(Object.assign(document.createElement('div'),{className:'font-headline-lg text-[4rem]',textContent:'${ini}'}));}">` : `<div class="font-headline-lg text-[4rem]">${ini}</div>`;
     
     document.getElementById('dialog-content').innerHTML = `
       <div class="w-full bg-white border-b border-primary p-8 flex items-center justify-center min-h-[200px]">
