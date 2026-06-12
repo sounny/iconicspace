@@ -1,6 +1,5 @@
 /* ============================================================
-   ICONICSPACE — App Logic
-   Uses native <dialog>, dynamic logo loading, filter/search
+   ICONICSPACE — App Logic (Tailwind / Brutalist Migration)
    ============================================================ */
 
 (function () {
@@ -53,13 +52,33 @@
   ];
 
   // === DOM refs ===
-  const grid = document.getElementById('grid');
-  const searchEl = document.getElementById('search');
+  const grid = document.getElementById('logos-grid');
+  const searchEl = document.getElementById('search-input');
   const famSelect = document.getElementById('filter-family');
   const regSelect = document.getElementById('filter-region');
   const secSelect = document.getElementById('filter-sector');
-  const countEl = document.getElementById('count');
+  const countEl = document.getElementById('results-count');
+  const activeFilterText = document.getElementById('active-filter-text');
   const dialog = document.getElementById('detail-dialog');
+
+  // Navigation
+  const viewArchive = document.getElementById('view-archive');
+  const viewTraditions = document.getElementById('view-traditions');
+  const viewTypology = document.getElementById('view-typology');
+  
+  document.getElementById('nav-archive').addEventListener('click', () => switchView('archive'));
+  document.getElementById('nav-traditions').addEventListener('click', () => switchView('traditions'));
+  document.getElementById('nav-typology').addEventListener('click', () => switchView('typology'));
+
+  function switchView(view) {
+    viewArchive.classList.add('hidden');
+    viewTraditions.classList.add('hidden');
+    viewTypology.classList.add('hidden');
+    
+    if (view === 'archive') viewArchive.classList.remove('hidden');
+    if (view === 'traditions') viewTraditions.classList.remove('hidden');
+    if (view === 'typology') viewTypology.classList.remove('hidden');
+  }
 
   // === Build filter options from data ===
   function buildOptions() {
@@ -85,30 +104,42 @@
   // === Render company cards ===
   function render(data) {
     grid.innerHTML = '';
-    countEl.textContent = data.length + ' result' + (data.length !== 1 ? 's' : '');
-    if (!data.length) { grid.innerHTML = '<div class="empty">No companies match your filters.</div>'; return; }
+    countEl.textContent = `RESULTS: ${data.length} SPECIMENS`;
+    if (!data.length) { grid.innerHTML = '<div class="col-span-full p-16 text-center font-label-mono-md text-secondary">No specimens match the current criteria.</div>'; return; }
 
     const frag = document.createDocumentFragment();
-    data.forEach(c => {
-      const el = document.createElement('div');
-      el.className = 'card';
+    data.forEach((c, i) => {
+      const el = document.createElement('article');
+      el.className = 'brutal-border-r brutal-border-b bg-surface-container-lowest flex flex-col h-full group hover:bg-surface-variant transition-colors cursor-pointer outline-none focus:ring-2 ring-primary';
       el.setAttribute('role', 'listitem');
       el.setAttribute('tabindex', '0');
 
       const ini = initials(c.name);
+      const safeName = c.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
       const dom = domain(c.website);
+      
       const logoHtml = dom
-        ? `<div class="card-logo"><img src="https://logo.clearbit.com/${dom}" alt="" loading="lazy" onerror="this.parentElement.outerHTML='<div class=\\'card-fallback\\'>${ini}</div>'"></div>`
-        : `<div class="card-fallback">${ini}</div>`;
+        ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[120px] max-h-[80px] object-contain group-hover:scale-105 transition-transform duration-300 mix-blend-multiply grayscale hover:grayscale-0" loading="lazy" onerror="this.onerror=null; this.src='https://logo.clearbit.com/${dom}';">`
+        : `<div class="w-16 h-16 brutal-border flex items-center justify-center bg-transparent group-hover:bg-primary group-hover:text-white transition-colors duration-300"><span class="font-headline-lg text-headline-lg">${ini}</span></div>`;
 
       el.innerHTML = `
-        <div class="card-top">
+        <div class="w-full aspect-[4/3] brutal-border-b relative overflow-hidden bg-white p-6 flex items-center justify-center">
+          <div class="absolute top-2 right-2 font-metadata text-metadata text-secondary z-10">REF-${String(i+1).padStart(3, '0')}</div>
           ${logoHtml}
-          <div><div class="card-name">${c.name}</div><div class="card-meta">${c.country} · ${c.year || ''}</div></div>
         </div>
-        <div class="card-tags">
-          <span class="tag tag-fam">${c.family}</span>
-          <span class="tag">${c.sector}</span>
+        <div class="p-3 flex flex-col gap-2 flex-grow">
+          <div class="flex justify-between items-end border-b border-primary border-dashed pb-1">
+            <span class="font-metadata text-metadata text-secondary w-16">ORG:</span>
+            <span class="font-label-mono-md text-label-mono-md font-bold text-right truncate">${c.name}</span>
+          </div>
+          <div class="flex justify-between items-end border-b border-primary border-dashed pb-1">
+            <span class="font-metadata text-metadata text-secondary w-16">FAM:</span>
+            <span class="font-label-mono-md text-label-mono-md text-right truncate">${c.family}</span>
+          </div>
+          <div class="flex justify-between items-end border-b border-primary border-dashed pb-1">
+            <span class="font-metadata text-metadata text-secondary w-16">LOC:</span>
+            <span class="font-label-mono-md text-label-mono-md text-right truncate">${c.country || 'N/A'}</span>
+          </div>
         </div>`;
 
       el.addEventListener('click', () => openDetail(c));
@@ -124,11 +155,15 @@
     const fam = famSelect.value;
     const reg = regSelect.value;
     const sec = secSelect.value;
+    
+    const filtersActive = [fam, reg, sec].filter(v => v !== '').length + (q ? 1 : 0);
+    activeFilterText.textContent = filtersActive > 0 ? `ACTIVE FILTERS: ${filtersActive}` : `ACTIVE FILTER: NONE`;
+
     const filtered = COMPANIES.filter(c => {
       if (q && !c.name.toLowerCase().includes(q) && !(c.country || '').toLowerCase().includes(q)) return false;
-      if (fam !== 'all' && c.family !== fam) return false;
-      if (reg !== 'all' && c.region !== reg) return false;
-      if (sec !== 'all' && c.sector !== sec) return false;
+      if (fam && fam !== '' && c.family !== fam) return false;
+      if (reg && reg !== '' && c.region !== reg) return false;
+      if (sec && sec !== '' && c.sector !== sec) return false;
       return true;
     });
     render(filtered);
@@ -142,42 +177,76 @@
   // === Detail dialog ===
   function openDetail(c) {
     const dom = domain(c.website);
-    document.getElementById('d-name').textContent = c.name;
-    document.getElementById('d-sector').textContent = c.sector;
-    document.getElementById('d-year').textContent = c.year || '—';
-    document.getElementById('d-country').textContent = c.country || '—';
-    document.getElementById('d-family').textContent = c.family || '—';
-    document.getElementById('d-region').textContent = c.region || '—';
-    document.getElementById('d-desc').textContent = c.description || 'Visual analysis forthcoming.';
-
-    const logo = document.getElementById('d-logo');
-    if (dom) { logo.src = `https://logo.clearbit.com/${dom}`; logo.alt = c.name; logo.style.display = ''; logo.onerror = function(){ this.style.display='none'; }; }
-    else { logo.style.display = 'none'; }
-
-    const link = document.getElementById('d-link');
-    if (c.website) { link.href = c.website; link.style.display = ''; }
-    else { link.style.display = 'none'; }
+    const safeName = c.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    const logoImg = dom ? `<img src="logos/${safeName}.png" alt="${c.name}" class="max-w-[200px] max-h-[120px] object-contain mix-blend-multiply" onerror="this.onerror=null; this.src='https://logo.clearbit.com/${dom}';">` : `<div class="font-headline-lg text-[4rem]">${initials(c.name)}</div>`;
+    
+    document.getElementById('dialog-content').innerHTML = `
+      <div class="w-full bg-white border-b border-primary p-8 flex items-center justify-center min-h-[200px]">
+        ${logoImg}
+      </div>
+      <div class="p-6 md:p-8">
+        <h2 class="font-headline-lg text-[2.5rem] leading-none mb-6">${c.name}</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 font-label-mono-md">
+          <div class="flex flex-col border-b border-primary border-dashed pb-2">
+            <span class="font-metadata text-secondary mb-1">Sector</span>
+            <span>${c.sector}</span>
+          </div>
+          <div class="flex flex-col border-b border-primary border-dashed pb-2">
+            <span class="font-metadata text-secondary mb-1">Year Founded</span>
+            <span>${c.year || '—'}</span>
+          </div>
+          <div class="flex flex-col border-b border-primary border-dashed pb-2">
+            <span class="font-metadata text-secondary mb-1">Country / HQ</span>
+            <span>${c.country || '—'}</span>
+          </div>
+          <div class="flex flex-col border-b border-primary border-dashed pb-2">
+            <span class="font-metadata text-secondary mb-1">Region</span>
+            <span>${c.region || '—'}</span>
+          </div>
+          <div class="flex flex-col border-b border-primary border-dashed pb-2">
+            <span class="font-metadata text-secondary mb-1">Typological Family</span>
+            <span>${c.family || '—'}</span>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-label-mono-sm uppercase underline decoration-primary underline-offset-4 mb-4">Visual Analysis</h3>
+          <p class="font-body-md text-[1.1rem] leading-relaxed">${c.description || 'Visual analysis forthcoming.'}</p>
+        </div>
+        
+        ${c.website ? `
+        <div class="mt-8">
+          <a href="${c.website}" target="_blank" class="inline-block brutal-border px-4 py-2 font-label-mono-sm uppercase hover:bg-primary hover:text-white transition-colors">Visit Official Site</a>
+        </div>
+        ` : ''}
+      </div>
+    `;
 
     dialog.showModal();
   }
 
-  // Close on backdrop click
+  // Close on backdrop click and X button
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+  document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
 
   // === Build Typology Cards ===
   function buildFamilies() {
-    const container = document.getElementById('family-grid');
+    const container = document.getElementById('typology-grid');
     FAMILIES.forEach(f => {
       const card = document.createElement('article');
-      card.className = 'family-card';
+      card.className = 'brutal-border-r brutal-border-b bg-surface-container-lowest flex flex-col h-full hover:bg-surface-variant transition-colors';
       card.innerHTML = `
-        <div class="family-card-img"><img src="${f.img}" alt="${f.key} archetype" loading="lazy"></div>
-        <div class="family-card-body">
-          <span class="pill" style="background:color-mix(in oklch, ${f.color} 15%, transparent);color:${f.color}">${f.key}</span>
-          <h3>${f.key}</h3>
-          <p class="family-pct">${f.pct} of dataset</p>
-          <p>${f.desc}</p>
-          <p class="family-examples"><strong>Examples:</strong> ${f.examples}</p>
+        <div class="w-full aspect-[4/3] brutal-border-b bg-white p-6 flex items-center justify-center">
+          <img src="${f.img}" alt="${f.key} archetype" loading="lazy" class="max-w-[200px] object-contain mix-blend-multiply grayscale">
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <div class="flex justify-between items-baseline mb-4 border-b border-primary border-dashed pb-2">
+            <span class="font-label-mono-md font-bold uppercase">${f.key}</span>
+            <span class="font-metadata">${f.pct}</span>
+          </div>
+          <p class="font-body-md mb-6">${f.desc}</p>
+          <p class="font-metadata uppercase mt-auto">EX: ${f.examples}</p>
         </div>`;
       container.appendChild(card);
     });
@@ -188,29 +257,22 @@
     const container = document.getElementById('traditions-grid');
     TRADITIONS.forEach(t => {
       const card = document.createElement('article');
-      card.className = 'tradition-card';
+      card.className = 'brutal-border-r brutal-border-b bg-surface-container-lowest flex flex-col h-full hover:bg-surface-variant transition-colors';
       card.innerHTML = `
-        <div class="tradition-card-img"><img src="${t.img}" alt="${t.key}" loading="lazy"></div>
-        <div class="tradition-card-body">
-          <span class="pill" style="background:color-mix(in oklch, ${t.color} 15%, transparent);color:${t.color}">${t.region}</span>
-          <h3>${t.key}</h3>
-          <p>${t.desc}</p>
-          <p class="family-examples"><strong>Examples:</strong> ${t.examples}</p>
+        <div class="w-full aspect-[4/3] brutal-border-b bg-white p-6 flex items-center justify-center">
+          <img src="${t.img}" alt="${t.key}" loading="lazy" class="max-w-[200px] object-contain mix-blend-multiply grayscale">
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <div class="flex justify-between items-baseline mb-4 border-b border-primary border-dashed pb-2">
+            <span class="font-label-mono-md font-bold uppercase">${t.key}</span>
+            <span class="font-metadata text-secondary">${t.region}</span>
+          </div>
+          <p class="font-body-md mb-6">${t.desc}</p>
+          <p class="font-metadata uppercase mt-auto">EX: ${t.examples}</p>
         </div>`;
       container.appendChild(card);
     });
   }
-
-  // === Smooth scroll for nav ===
-  document.querySelectorAll('.header-nav a').forEach(link => {
-    link.addEventListener('click', e => {
-      const id = link.getAttribute('href');
-      if (id.startsWith('#')) {
-        e.preventDefault();
-        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
 
   // === Init ===
   buildOptions();

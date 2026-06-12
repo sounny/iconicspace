@@ -1,218 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IconicSpace — A Visual Archive of Space Industry Identity</title>
-    <meta name="description" content="An open academic archive cataloging 200+ space company and agency logos. Explore the visual culture of the space industry through typological families, cultural traditions, and geographic regions.">
-    <meta property="og:title" content="IconicSpace — Space Logo Archive">
-    <meta property="og:description" content="Explore 200+ space company logos organized by typological family and cultural tradition.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>IconicSpace - Archive Index</title>
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;500;600;700&display=swap" rel="stylesheet"/>
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fdf8f8",
+            "primary": "#000000",
+            "secondary": "#5f5e5b",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f7f3f2",
+            "surface-container": "#f1edec",
+            "surface-container-high": "#ebe7e6",
+            "surface-variant": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "error": "#ba1a1a",
+          },
+          "fontFamily": {
+            "body-md": ["Newsreader"],
+            "display-lg": ["Newsreader"],
+            "label-mono-sm": ["JetBrains Mono"],
+            "label-mono-md": ["JetBrains Mono"],
+            "metadata": ["JetBrains Mono"],
+            "headline-lg": ["Newsreader"],
+            "headline-lg-mobile": ["Newsreader"]
+          },
+          "fontSize": {
+            "body-md": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "label-mono-sm": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "label-mono-md": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+            "metadata": ["11px", {"lineHeight": "1.2", "fontWeight": "400"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "500"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "500"}]
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    .brutal-border { border: 1px solid #000; }
+    .brutal-border-t { border-top: 1px solid #000; }
+    .brutal-border-b { border-bottom: 1px solid #000; }
+    .brutal-border-l { border-left: 1px solid #000; }
+    .brutal-border-r { border-right: 1px solid #000; }
+    .vermillion-bg { background-color: #e63946; }
+    .hazard-bg-focus:focus { background-color: #ffb703; }
+    body { min-height: max(884px, 100dvh); }
+    
+    /* Native Dialog overrides */
+    dialog::backdrop { background: rgba(253, 248, 248, 0.9); }
+    dialog { box-shadow: 16px 16px 0px rgba(0,0,0,1); }
+  </style>
+
+  <script src="data.js"></script>
+  <script src="app.js" defer></script>
 </head>
-<body>
 
-    <!-- HEADER -->
-    <header class="site-header" id="top">
-        <div class="header-inner">
-            <a href="#top" class="logo-group">
-                <span class="logo-icon" aria-hidden="true">◎</span>
-                <span class="site-title">Iconic<span class="hl">Space</span></span>
-            </a>
-            <nav class="header-nav" aria-label="Main navigation">
-                <a href="#archive">Archive</a>
-                <a href="#typology">Typology</a>
-                <a href="#traditions">Traditions</a>
-                <a href="#scripts">Scripts</a>
-                <a href="#about">About</a>
-            </nav>
-        </div>
-    </header>
+<body class="bg-surface text-primary min-h-screen flex flex-col font-body-md antialiased pb-16 md:pb-0 pt-20">
 
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="hero-heading">
-        <div class="hero-bg" aria-hidden="true"></div>
-        <div class="hero-inner">
-            <p class="overline">Open Research Archive · n=200 · 20+ Countries · 6 Continents</p>
-            <h1 id="hero-heading">Why do companies that pride themselves on <em>disruption</em> converge on such visually <em>conformist</em> identities?</h1>
-            <p class="hero-body">
-                IconicSpace catalogs the visual identities of 200 space organizations worldwide, organized by 
-                <strong>typological family</strong> and <strong>cultural tradition</strong>. Companion dataset for 
-                "Branding the Void" (Sounny-Slitine &amp; Bensalem, forthcoming, <em>Space Policy</em>).
-            </p>
-            <div class="hero-actions">
-                <a href="#archive" class="btn btn-primary">Explore the Archive</a>
-                <a href="#typology" class="btn btn-ghost">View Typology</a>
-            </div>
-        </div>
-        <div class="hero-metrics" aria-label="Key findings">
-            <div class="metric">
-                <span class="metric-val">93<small>%</small></span>
-                <span class="metric-label">sans-serif typography</span>
-            </div>
-            <div class="metric">
-                <span class="metric-val">72<small>%</small></span>
-                <span class="metric-label">abstract iconography</span>
-            </div>
-            <div class="metric">
-                <span class="metric-val">&lt;5<small>%</small></span>
-                <span class="metric-label">include a rocket</span>
-            </div>
-            <div class="metric">
-                <span class="metric-val">6</span>
-                <span class="metric-label">typological families</span>
-            </div>
-        </div>
+  <!-- TopAppBar -->
+  <header class="bg-surface text-primary docked full-width top-0 border-b border-primary flat no shadows flex justify-between items-center w-full px-4 md:px-8 h-20 fixed z-50">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-primary">grid_view</span>
+      <span class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tighter">IconicSpace</span>
+    </div>
+    <div class="flex gap-4 items-center">
+      <button id="nav-archive" class="hidden md:block font-label-mono-md text-label-mono-md uppercase hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors">Archive</button>
+      <button id="nav-traditions" class="hidden md:block font-label-mono-md text-label-mono-md uppercase hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors">Traditions</button>
+      <button id="nav-typology" class="hidden md:block font-label-mono-md text-label-mono-md uppercase hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors">Typology</button>
+      <span class="font-label-mono-md text-label-mono-md ml-4">ID: PRJ-082-ALPHA</span>
+    </div>
+  </header>
+
+  <main class="flex-grow flex flex-col w-full max-w-7xl mx-auto px-4 md:px-8 mt-8" id="view-archive">
+    
+    <!-- Research Note Banner -->
+    <section class="w-full brutal-border mb-8 bg-surface-container-lowest p-3 flex flex-col md:flex-row items-start md:items-center gap-4 relative overflow-hidden group hover:bg-surface-container-high transition-colors">
+      <div class="absolute top-0 right-0 p-2 font-metadata text-metadata text-secondary">NOTE.001</div>
+      <div class="brutal-border p-2 bg-primary text-on-primary shrink-0">
+        <span class="material-symbols-outlined">warning</span>
+      </div>
+      <div>
+        <h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold">The Blue-Minimalist Trap</h3>
+        <p class="font-body-md text-body-md text-secondary mt-2 max-w-3xl">Observe the pervasive homogenization of corporate identity. The over-reliance on sanitized geometric sans-serif typography and clinical blue palettes strips narrative weight from modern branding. This archive exists to document alternatives.</p>
+      </div>
     </section>
 
-    <!-- TYPOLOGY -->
-    <section id="typology" class="section" aria-labelledby="typology-heading">
-        <div class="container">
-            <header class="section-header">
-                <p class="overline">Classification</p>
-                <h2 id="typology-heading">Six Typological Families</h2>
-                <p class="section-desc">Our analysis identified six recurring visual families across the commercial space industry. Fictional archetype logos illustrate each pattern.</p>
-            </header>
-
-            <div class="family-grid" id="family-grid">
-                <!-- Populated by JS -->
-            </div>
+    <!-- Search and Filter Grid -->
+    <section class="w-full brutal-border mb-8 bg-surface-container-lowest">
+      <div class="grid grid-cols-1 md:grid-cols-4 brutal-border-b">
+        <div class="p-3 brutal-border-b md:brutal-border-b-0 md:brutal-border-r">
+          <label class="block font-metadata text-metadata uppercase mb-2">Search Query</label>
+          <div class="flex items-center brutal-border p-1 focus-within:ring-2 ring-primary bg-white">
+            <span class="material-symbols-outlined text-secondary ml-1">search</span>
+            <input id="search-input" class="w-full bg-transparent border-none focus:ring-0 font-label-mono-sm text-label-mono-sm hazard-bg-focus outline-none pl-2" placeholder="Enter keyword..." type="text"/>
+          </div>
         </div>
+        <div class="p-3 brutal-border-b md:brutal-border-b-0 md:brutal-border-r flex flex-col justify-center bg-white hover:bg-surface-variant transition-colors">
+          <label class="block font-metadata text-metadata uppercase mb-1">Family</label>
+          <select id="filter-family" class="w-full bg-transparent border-none focus:ring-0 font-label-mono-sm text-label-mono-sm outline-none cursor-pointer">
+            <option value="">All Families</option>
+          </select>
+        </div>
+        <div class="p-3 brutal-border-b md:brutal-border-b-0 md:brutal-border-r flex flex-col justify-center bg-white hover:bg-surface-variant transition-colors">
+          <label class="block font-metadata text-metadata uppercase mb-1">Sector</label>
+          <select id="filter-sector" class="w-full bg-transparent border-none focus:ring-0 font-label-mono-sm text-label-mono-sm outline-none cursor-pointer">
+            <option value="">All Sectors</option>
+          </select>
+        </div>
+        <div class="p-3 flex flex-col justify-center bg-white hover:bg-surface-variant transition-colors">
+          <label class="block font-metadata text-metadata uppercase mb-1">Region</label>
+          <select id="filter-region" class="w-full bg-transparent border-none focus:ring-0 font-label-mono-sm text-label-mono-sm outline-none cursor-pointer">
+            <option value="">All Regions</option>
+          </select>
+        </div>
+      </div>
+      <div class="p-3 bg-surface-container-high flex justify-between items-center">
+        <span class="font-metadata text-metadata" id="active-filter-text">ACTIVE FILTER: NONE</span>
+        <span class="font-metadata text-metadata" id="results-count">RESULTS: 0 SPECIMENS</span>
+      </div>
     </section>
 
-    <!-- COUNTER-TRADITIONS -->
-    <section id="traditions" class="section section-alt" aria-labelledby="traditions-heading">
-        <div class="container">
-            <header class="section-header">
-                <p class="overline">Cultural Divergence</p>
-                <h2 id="traditions-heading">Counter-Traditions</h2>
-                <p class="section-desc">Five cultural traditions resist the global minimalist convergence, each with a distinct design genealogy.</p>
-            </header>
-
-            <div class="traditions-grid" id="traditions-grid">
-                <!-- Populated by JS -->
-            </div>
-        </div>
+    <!-- Archive Grid -->
+    <section id="logos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 brutal-border-t brutal-border-l mb-16">
+      <!-- Generated by app.js -->
     </section>
 
-    <!-- ARCHIVE -->
-    <section id="archive" class="section" aria-labelledby="archive-heading">
-        <div class="container">
-            <header class="section-header">
-                <p class="overline">Full Dataset</p>
-                <h2 id="archive-heading">The Archive</h2>
-                <p class="section-desc">All 200 organizations. Search, filter, and explore.</p>
-            </header>
+  </main>
 
-            <div class="filter-bar" role="search" aria-label="Filter companies">
-                <div class="search-wrap">
-                    <svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                    <input type="search" id="search" placeholder="Search companies..." autocomplete="off">
-                </div>
-                <select id="filter-family" aria-label="Filter by family">
-                    <option value="all">All Families</option>
-                </select>
-                <select id="filter-region" aria-label="Filter by region">
-                    <option value="all">All Regions</option>
-                </select>
-                <select id="filter-sector" aria-label="Filter by sector">
-                    <option value="all">All Sectors</option>
-                </select>
-                <output id="count" class="count" aria-live="polite">200 results</output>
-            </div>
-
-            <div id="grid" class="card-grid" role="list">
-                <!-- Populated by JS -->
-            </div>
-        </div>
+  <!-- Traditions View -->
+  <main class="flex-grow flex-col w-full max-w-7xl mx-auto px-4 md:px-8 mt-8 hidden" id="view-traditions">
+    <h2 class="font-headline-lg text-headline-lg mb-8 uppercase border-b border-primary pb-2">Cultural Counter-Traditions</h2>
+    <section id="traditions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 brutal-border-t brutal-border-l mb-16">
+      <!-- Generated by app.js -->
     </section>
+  </main>
 
-    <!-- SCRIPT POLITICS -->
-    <section id="scripts" class="section section-alt" aria-labelledby="scripts-heading">
-        <div class="container">
-            <header class="section-header">
-                <p class="overline">Linguistic Identity</p>
-                <h2 id="scripts-heading">Script Politics</h2>
-                <p class="section-desc">Non-Latin writing systems in space branding perform cultural identity work entirely absent from Western logos.</p>
-            </header>
-            <div class="script-grid">
-                <div class="script-card"><span class="script-glyph">इसरो</span><span class="script-sys">Devanagari</span><span class="script-who">ISRO · India</span></div>
-                <div class="script-card"><span class="script-glyph">人</span><span class="script-sys">Chinese</span><span class="script-who">CNSA · China</span></div>
-                <div class="script-card"><span class="script-glyph">РОСКОСМОС</span><span class="script-sys">Cyrillic</span><span class="script-who">Roscosmos · Russia</span></div>
-                <div class="script-card"><span class="script-glyph">クウキ</span><span class="script-sys">Katakana</span><span class="script-who">Japanese startups</span></div>
-                <div class="script-card"><span class="script-glyph">وكالة الفضاء</span><span class="script-sys">Arabic</span><span class="script-who">EgSA · Egypt</span></div>
-                <div class="script-card absent"><span class="script-glyph">ABC</span><span class="script-sys">Latin only</span><span class="script-who">US &amp; Europe</span></div>
-            </div>
-        </div>
+  <!-- Typology View -->
+  <main class="flex-grow flex-col w-full max-w-7xl mx-auto px-4 md:px-8 mt-8 hidden" id="view-typology">
+    <h2 class="font-headline-lg text-headline-lg mb-8 uppercase border-b border-primary pb-2">Isomorphic Typology Families</h2>
+    <section id="typology-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 brutal-border-t brutal-border-l mb-16">
+      <!-- Generated by app.js -->
     </section>
+  </main>
 
-    <!-- ABOUT -->
-    <section id="about" class="section" aria-labelledby="about-heading">
-        <div class="container">
-            <header class="section-header">
-                <p class="overline">Research Context</p>
-                <h2 id="about-heading">About This Archive</h2>
-            </header>
-            <div class="about-grid">
-                <article class="about-card">
-                    <h3>Purpose</h3>
-                    <p>IconicSpace is a scholarly research archive for studying visual culture in the commercial space industry. All materials are presented for academic study, commentary, and criticism. Non-commercial.</p>
-                </article>
-                <article class="about-card">
-                    <h3>Citation</h3>
-                    <p>Sounny-Slitine, S. and Bensalem, S. (forthcoming) "Branding the Void: Visual Identity, Institutional Isomorphism, and Placemaking in the Commercial Space Industry," <em>Space Policy</em>.</p>
-                </article>
-                <article class="about-card">
-                    <h3>Methodology</h3>
-                    <p>200 organizations coded across four dimensions: typography, iconography, color, and composition (Krippendorff, 2004; Kress &amp; van Leeuwen, 2006; Henderson &amp; Cote, 1998).</p>
-                </article>
-                <article class="about-card">
-                    <h3>Framework</h3>
-                    <p>Two lenses: <strong>institutional isomorphism</strong> (DiMaggio &amp; Powell, 1983) explains convergence; <strong>visual placemaking</strong> (our concept) explains the cultural work logos perform in placeless environments.</p>
-                </article>
-            </div>
-        </div>
-    </section>
+  <!-- Dialog Element for Details -->
+  <dialog id="detail-dialog" class="brutal-border bg-surface text-primary p-0 w-11/12 max-w-3xl backdrop:bg-surface/90">
+    <button id="dialog-close" class="absolute top-4 right-4 bg-primary text-on-primary font-label-mono-sm px-2 py-1 uppercase hover:bg-error transition-colors">Close [x]</button>
+    <div id="dialog-content" class="flex flex-col"></div>
+  </dialog>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <p class="footer-mark">◎ Iconic<span class="hl">Space</span></p>
-            <p>A scholarly research archive for the study of space industry visual culture.</p>
-            <p class="legal">All company logos and trademarks are the property of their respective owners. Materials presented for academic study, commentary, and criticism under fair use. Non-commercial educational resource.</p>
-            <p class="legal">&copy; 2026 Sounny-Slitine &amp; Bensalem · <a href="https://github.com/sounny/iconicspace" target="_blank" rel="noopener">GitHub</a></p>
-        </div>
-    </footer>
-
-    <!-- DETAIL DIALOG (HTML dialog element) -->
-    <dialog id="detail-dialog" class="detail-dialog">
-        <form method="dialog">
-            <button class="dialog-close" aria-label="Close">&times;</button>
-        </form>
-        <div class="dialog-body">
-            <div class="dialog-header">
-                <img id="d-logo" class="dialog-logo" src="" alt="" loading="lazy">
-                <div>
-                    <h2 id="d-name"></h2>
-                    <p id="d-sector" class="dialog-sector"></p>
-                </div>
-            </div>
-            <dl class="dialog-meta">
-                <div><dt>Founded</dt><dd id="d-year"></dd></div>
-                <div><dt>Country</dt><dd id="d-country"></dd></div>
-                <div><dt>Family</dt><dd id="d-family"></dd></div>
-                <div><dt>Region</dt><dd id="d-region"></dd></div>
-            </dl>
-            <h3>Visual Analysis</h3>
-            <p id="d-desc"></p>
-            <a id="d-link" class="dialog-link" href="" target="_blank" rel="noopener">Visit Website →</a>
-        </div>
-    </dialog>
-
-    <script src="data.js"></script>
-    <script src="app.js"></script>
 </body>
 </html>
