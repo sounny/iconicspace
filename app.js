@@ -28,27 +28,47 @@
   ];
 
   const TRADITIONS = [
-    { key: 'Soviet Constructivist', region: 'Russia', img: 'concepts/soviet_constructivist.png', color: 'var(--trad-russia)',
+    // --- Industry Conventions ---
+    { key: 'Tech Disruptor', category: 'Industry Convention', region: 'Global (US-origin)', img: 'concepts/tech_disruptor.png',
+      desc: 'The dominant mode. Silicon Valley minimalism imported wholesale into aerospace: ultra-thin sans-serif, monochrome palettes, .io domains. SpaceX established the template; the rest followed via mimetic isomorphism (DiMaggio & Powell, 1983).',
+      examples: 'SpaceX, Relativity Space, Stoke Space, Planet Labs' },
+    { key: 'Modernist Heritage', category: 'Industry Convention', region: 'Global (US/EU-origin)', img: 'concepts/modernist_heritage.png',
+      desc: 'Deliberate callback to mid-century aerospace modernism. Bold geometric wordmarks, NASA\'s 1975 "Worm" as ur-text. A conscious resistance to Silicon Valley flattening, yet still operating within Western design grammar.',
+      examples: 'Vast Space, Umbra, Astra Space, Blue Origin' },
+    { key: 'Defense Professional', category: 'Industry Convention', region: 'Global (US/NATO-origin)', img: 'concepts/defense_professional.png',
+      desc: 'Military-industrial institutional branding. Bold uppercase, shields, chevrons, navy-silver-gold. Designed to communicate trustworthiness to government procurement officers, not consumers.',
+      examples: 'Northrop Grumman, L3Harris, BlackSky, Maxar' },
+    { key: 'Sustainability Signaler', category: 'Industry Convention', region: 'Global (EU-led)', img: 'concepts/sustainability_signaler.png',
+      desc: 'Green/teal palettes signaling environmental responsibility. Leaf-orbit hybrids, bio-propane messaging. The newest family, responding to ESG pressures and orbital debris discourse.',
+      examples: 'ClearSpace, Astroscale, GHGSat, Space Forge' },
+    { key: 'Luxury Experiential', category: 'Industry Convention', region: 'Global', img: 'concepts/luxury_experiential.png',
+      desc: 'Premium hospitality and fashion codes applied to space tourism. Gold on midnight blue, aspirational lifestyle branding. Space reimagined as consumer experience rather than engineering achievement.',
+      examples: 'Virgin Galactic, Axiom Space, Space Perspective' },
+    { key: 'National Emblem', category: 'Industry Convention', region: 'Global (Government)', img: 'concepts/national_emblem.png',
+      desc: 'Government agency insignia. Circular seals, globes, orbital rings, national flag colors. Complex, heraldic, sovereignty-asserting. The oldest tradition in the dataset, predating commercial space.',
+      examples: 'NASA, ISRO, CNSA, AEB, AfSA, SANSA' },
+    // --- Regional Identities ---
+    { key: 'Soviet Constructivist', category: 'Regional Identity', region: 'Russia', img: 'concepts/soviet_constructivist.png',
       desc: 'Bold Cyrillic, red stars, dynamic diagonals. Three layers: Constructivist DNA (1920s), socialist-realist futurism (1960s), personality cult aesthetics (Gagarin/Korolev). The 2022 Red Star episode: explicit rejection of Western visual convergence.',
-      examples: 'Roscosmos, RSC Energia, Glavkosmos' },
-    { key: 'Chinese Cultural', region: 'China (Mission)', img: 'concepts/chinese_cultural.png', color: 'var(--trad-china)',
+      examples: 'Roscosmos' },
+    { key: 'Chinese Cultural', category: 'Regional Identity', region: 'China (Mission)', img: 'concepts/chinese_cultural.png',
       desc: 'Calligraphy-dominant mission logos with auspicious clouds (祥云), celestial creatures, "gold-inlaid jade" palettes. The 人 (ren) character as CNSA\'s core symbol encoding "humans at the center."',
       examples: 'CNSA, CMSA mission patches, Shenzhou/Tianzhou' },
-    { key: 'Chinese Corporate', region: 'China (Commercial)', img: 'concepts/chinese_corporate.png', color: 'var(--trad-china)',
+    { key: 'Chinese Corporate', category: 'Regional Identity', region: 'China (Commercial)', img: 'concepts/chinese_corporate.png',
       desc: 'Bilingual (Chinese + Latin), blue-and-white institutional. Nearly identical to Western startups except for Chinese characters. Evidence of partial isomorphism.',
       examples: 'CAS Space, Galaxy Space, Orienspace, Spacety' },
-    { key: 'Indian Bilingual', region: 'India', img: 'concepts/indian_bilingual.png', color: 'var(--trad-india)',
+    { key: 'Indian Bilingual', category: 'Regional Identity', region: 'India', img: 'concepts/indian_bilingual.png',
       desc: 'Devanagari + Latin bilingual. Custom "Prakrta" typeface echoing Devanagari. Saffron/orange (national flag). Postcolonial assertion of indigenous technological capability.',
       examples: 'ISRO, IN-SPACe' },
-    { key: 'African Postcolonial', region: 'Africa', img: 'concepts/african_postcolonial.png', color: 'var(--trad-africa)',
+    { key: 'African Postcolonial', category: 'Regional Identity', region: 'Africa', img: 'concepts/african_postcolonial.png',
       desc: 'Pan-African colors (green, gold, red). AfSA logo crowdsourced from continental competition. Identity built from within. Development-framed rather than disruption-framed.',
-      examples: 'AfSA, SANSA, EgSA, NASRDA, Kenya Space Agency' },
-    { key: 'Japanese Monochrome', region: 'Japan', img: 'concepts/japanese_monochrome.png', color: 'var(--trad-japan)',
+      examples: 'AfSA, SANSA, NASRDA, Kenya Space Agency' },
+    { key: 'Japanese Monochrome', category: 'Regional Identity', region: 'Japan', img: 'concepts/japanese_monochrome.png',
       desc: 'Strict black-and-white, more austere than Western minimalism. Rooted in Japanese design traditions (Muji, Kenya Hara), Buddhist aesthetics of negative space (ma, 間).',
       examples: 'ispace, Synspective, Axelspace, iQPS' },
-    { key: 'Latin American National', region: 'Latin America', img: 'concepts/latin_american.png', color: 'var(--trad-latam)',
+    { key: 'Latin American National', category: 'Regional Identity', region: 'Latin America', img: 'concepts/latin_american.png',
       desc: 'Strongest national flag color integration of any region. Brazilian green/gold/blue, Argentine blue/white. Overwhelmingly governmental, reflecting state-led development.',
-      examples: 'AEB, INPE, CONAE, INVAP, AEM' },
+      examples: 'AEB, CONAE, INVAP, AEM' },
   ];
 
   // === DOM refs ===
@@ -256,22 +276,36 @@
   // === Build Traditions Cards ===
   function buildTraditions() {
     const container = document.getElementById('traditions-grid');
-    TRADITIONS.forEach(t => {
-      const card = document.createElement('article');
-      card.className = 'brutal-border-r brutal-border-b bg-surface-container-lowest flex flex-col h-full hover:bg-surface-variant transition-colors';
-      card.innerHTML = `
-        <div class="w-full aspect-[4/3] brutal-border-b bg-white p-6 flex items-center justify-center">
-          <img src="${t.img}" alt="${t.key}" loading="lazy" class="max-w-[200px] object-contain mix-blend-multiply grayscale">
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <div class="flex justify-between items-baseline mb-4 border-b border-primary border-dashed pb-2">
-            <span class="font-label-mono-md font-bold uppercase">${t.key}</span>
-            <span class="font-metadata text-secondary">${t.region}</span>
+    const categories = [...new Set(TRADITIONS.map(t => t.category))];
+    
+    categories.forEach(cat => {
+      // Category header spanning full grid
+      const header = document.createElement('div');
+      header.className = 'col-span-full brutal-border-r brutal-border-b bg-primary text-on-primary p-3 flex items-center gap-3';
+      header.innerHTML = `
+        <span class="material-symbols-outlined">${cat === 'Industry Convention' ? 'corporate_fare' : 'public'}</span>
+        <span class="font-label-mono-md text-label-mono-md uppercase tracking-wider">${cat}</span>
+        <span class="font-metadata ml-auto">${TRADITIONS.filter(t => t.category === cat).length} TRADITIONS</span>`;
+      container.appendChild(header);
+      
+      // Cards for this category
+      TRADITIONS.filter(t => t.category === cat).forEach(t => {
+        const card = document.createElement('article');
+        card.className = 'brutal-border-r brutal-border-b bg-surface-container-lowest flex flex-col h-full hover:bg-surface-variant transition-colors';
+        card.innerHTML = `
+          <div class="w-full aspect-[4/3] brutal-border-b bg-white p-6 flex items-center justify-center relative">
+            <div class="absolute top-2 left-2 font-metadata text-metadata bg-surface-container-high px-2 py-1">${t.region}</div>
+            <img src="${t.img}" alt="${t.key}" loading="lazy" class="max-w-[200px] object-contain mix-blend-multiply grayscale">
           </div>
-          <p class="font-body-md mb-6">${t.desc}</p>
-          <p class="font-metadata uppercase mt-auto">EX: ${t.examples}</p>
-        </div>`;
-      container.appendChild(card);
+          <div class="p-6 flex flex-col flex-grow">
+            <div class="mb-4 border-b border-primary border-dashed pb-2">
+              <span class="font-label-mono-md font-bold uppercase">${t.key}</span>
+            </div>
+            <p class="font-body-md mb-6">${t.desc}</p>
+            <p class="font-metadata uppercase mt-auto">EX: ${t.examples}</p>
+          </div>`;
+        container.appendChild(card);
+      });
     });
   }
 
