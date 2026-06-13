@@ -85,19 +85,23 @@
   const viewArchive = document.getElementById('view-archive');
   const viewTraditions = document.getElementById('view-traditions');
   const viewTypology = document.getElementById('view-typology');
+  const viewAbout = document.getElementById('view-about');
   
   document.getElementById('nav-archive').addEventListener('click', () => switchView('archive'));
   document.getElementById('nav-traditions').addEventListener('click', () => switchView('traditions'));
   document.getElementById('nav-typology').addEventListener('click', () => switchView('typology'));
+  document.getElementById('nav-about').addEventListener('click', () => switchView('about'));
 
   function switchView(view) {
     viewArchive.classList.add('hidden');
     viewTraditions.classList.add('hidden');
     viewTypology.classList.add('hidden');
+    viewAbout.classList.add('hidden');
     
     if (view === 'archive') viewArchive.classList.remove('hidden');
     if (view === 'traditions') viewTraditions.classList.remove('hidden');
     if (view === 'typology') viewTypology.classList.remove('hidden');
+    if (view === 'about') viewAbout.classList.remove('hidden');
   }
 
   // === Build filter options from data ===
